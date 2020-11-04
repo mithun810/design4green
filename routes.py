@@ -5,7 +5,10 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+ os.path.join(basedir, 'designforgreen.db')
+# 'mysql://username:password@server/db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+ os.path.join(basedir, 'designforgreen.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:sqlpassword@localhost:3306/designforgreen'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 db.Model.metadata.reflect(db.engine)
 

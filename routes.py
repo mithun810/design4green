@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 import models
 import os
+from utils import get_data, get_filters
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
@@ -16,7 +17,8 @@ db.Model.metadata.reflect(db.engine)
 @app.route('/')
 @app.route('/index.html')
 def index():
-    print("Total number of records is", models.data_indexed.query.count())
+    data=get_data()
+    filters=get_filters()
     return render_template('index.html', the_title='Tiger Home Page')
 
 @app.route('/symbol.html')

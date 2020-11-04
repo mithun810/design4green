@@ -17,8 +17,8 @@ db.Model.metadata.reflect(db.engine)
 @app.route('/')
 @app.route('/index.html')
 def index():
-    data=get_data()
     filters=get_filters()
+    data=get_data()
     return render_template('index.html', the_title='Tiger Home Page')
 
 @app.route('/symbol.html')

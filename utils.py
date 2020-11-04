@@ -2,25 +2,25 @@ import models
 
 def get_data(filters=None):
     Final_result=[]
-    data={"commune":"","code_iris":0,"rank":0,"nom_iris":"","population":0}
     if filters:
         print("data")
     else:
-        result=models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales=="Non").order_by(models.data_indexed.score_global_region).all()
+        result=models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales=="Non").order_by(models.data_indexed.score_global_region.desc()).all()
         i=1
         for r in result:
-            data["commune"]=r.Commune
-            data["code_iris"]=r.code_iris
-            data["rank"]=i
-            data["nom_iris"]=r.nom_iris
-            data["population"]=r.population
-            data["score_global"]=r.score_global_region # filter based on Choix de Point Reference
-            data["access_aux_interfaces_numeriques"]=r.access_aux_interfaces_numeriques_region # filter based on Choix de Point Reference
-            data["access_al_information"]=r.access_al_information_region  # filter based on Choix de Point Reference
-            data["competences_administative"]=r.competences_administative_region # filter based on Choix de Point Reference
-            data["competence_numeriques"]=r.competence_numeriques_region # filter based on Choix de Point Reference
-            data["global_access"]=r.global_access_region # filter based on Choix de Point Reference
-            data["global_competence"]=r.global_competence_region # filter based on Choix de Point Reference
+            data={}
+            data["Nom Com"]=r.Commune
+            data["Code Iris"]=r.code_iris
+            data["Rank of ScoreGlobal"]=i
+            data["Nom Iris"]=r.nom_iris
+            data["Population"]=r.population
+            data["Score Global"]=r.score_global_region # filter based on Choix de Point Reference
+            data["Acces Aux_interfaces_numeriques_intercommunalite"]=r.access_aux_interfaces_numeriques_region # filter based on Choix de Point Reference
+            data["Access Al_information_intercommunalite"]=r.access_al_information_region  # filter based on Choix de Point Reference
+            data["competences_administative_intercommunalite"]=r.competences_administative_region # filter based on Choix de Point Reference
+            data["competence_numeriques_intercommunalite"]=r.competence_numeriques_region # filter based on Choix de Point Reference
+            data["global_access_intercommunalite"]=r.global_access_region # filter based on Choix de Point Reference
+            data["global_competence_intercommunalite"]=r.global_competence_region # filter based on Choix de Point Reference
             i=i+1
             Final_result.append(data)
     # print("final\n",Final_result)

@@ -38,6 +38,7 @@ class data_indexed(db.Model):
     global_competence_department= db.Column(db.Float)
     global_competence_intercommunalite= db.Column(db.Float)
     global_competence_region= db.Column(db.Float)
+    geo_points= db.Column(db.Text)
 
 
 class School(db.Model):

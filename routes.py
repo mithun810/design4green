@@ -8,7 +8,7 @@ app = Flask(__name__)
 SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
 # 'mysql://username:password@server/db'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+ os.path.join(basedir, 'designforgreen.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:sqlpassword@localhost:3306/designforgreen'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Sql@password@localhost:3306/greendesign'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 db.Model.metadata.reflect(db.engine)
@@ -19,11 +19,15 @@ db.Model.metadata.reflect(db.engine)
 @app.route('/')
 @app.route('/index.html')
 def index():
-    userlist = [['Bangalore'], ['Delhi'], ['Chennai']]
-    deplist=[['Bangalore'], ['Delhi'], ['Chennai']]
-    intercomlist=[['Bangalore'], ['Delhi'], ['Chennai']]
-    mapbox_access_token = 'pk.eyJ1Ijoidm5pc2hhbnQxMDEyIiwiYSI6ImNraDNoYmIyNzBhZTcycnF5ZTRmamttNmEifQ.0f6AIvvxNgBhNX_zvbhIBw'
-    return render_template('index.html',userlist=userlist,mapbox_access_token=mapbox_access_token,deplist=deplist,intercomlist=intercomlist)
+  userlist = ['Bangalore', 'Delhi', 'Chennai']
+  deplist=['Bangalore', 'Delhi', 'Chennai']
+  intercomlist=['Bangalore', 'Delhi', 'Chennai']
+  communelist=['Bangalore', 'Delhi', 'Chennai']
+  referencelist=['Bangalore', 'Delhi', 'Chennai']
+  donnes_infralist=['Bangalore', 'Delhi', 'Chennai']
+  intercomlist=[['Bangalore'], ['Delhi'], ['Chennai']]
+  mapbox_access_token = 'pk.eyJ1Ijoidm5pc2hhbnQxMDEyIiwiYSI6ImNraDNoYmIyNzBhZTcycnF5ZTRmamttNmEifQ.0f6AIvvxNgBhNX_zvbhIBw'
+  return render_template('index.html',userlist=userlist,mapbox_access_token=mapbox_access_token,deplist=deplist,intercomlist=intercomlist,communelist=communelist,referencelist=referencelist,donnes_infralist=donnes_infralist)
 
 @app.route('/index_get_data')
 def stuff():

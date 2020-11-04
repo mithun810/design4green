@@ -10,9 +10,12 @@
 
   
   <body>
-    <div class="slidecontainer" margin-left="10">
-      <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-    </div>
+    <div class="rangeslider">
+      <h5>Filter score Global de la Carte:</h5> 
+      <input type="range" min="0.0" max="276.6" value="276.6"
+                      class="myslider" id="sliderRange"> 
+      <p>Value: <span id="demo"></span></p> 
+    </div> 
   
    
       <div class="row" margin-left="10">
@@ -142,6 +145,32 @@
             {% endfor %}
             </select>
             </form>
+            <form action="/showusername">      
+              <h4>Commune</h4>
+              <select id="currentuser" name="currentuser">
+              {% for user in userlist %}
+                <option value="{{user}}">{{user}}</option>
+              {% endfor %}
+              </select>
+              </form>
+              <form action="/showusername">      
+                <h4>Point of Reference</h4>
+                <select id="currentuser" name="currentuser">
+                {% for user in userlist %}
+                  <option value="{{user}}">{{user}}</option>
+                {% endfor %}
+                </select>
+                </form>
+                <br>
+                <h5>:Plux la contour</h5>
+                <form action="/showusername">      
+                  <h4>Donnes-infra</h4>
+                  <select id="currentuser" name="currentuser">
+                  {% for user in userlist %}
+                    <option value="{{user}}">{{user}}</option>
+                  {% endfor %}
+                  </select>
+                  </form>
       </body>
         </div>
         <!-- <div id='drop-down' style='width: 95%; height:200px;'></div><br/><br/>

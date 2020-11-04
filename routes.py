@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import models
 import os
 from utils import get_data, get_filters
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
@@ -27,7 +28,8 @@ def index():
   donnes_infralist=['Bangalore', 'Delhi', 'Chennai']
   intercomlist=[['Bangalore'], ['Delhi'], ['Chennai']]
   mapbox_access_token = 'pk.eyJ1Ijoidm5pc2hhbnQxMDEyIiwiYSI6ImNraDNoYmIyNzBhZTcycnF5ZTRmamttNmEifQ.0f6AIvvxNgBhNX_zvbhIBw'
-  return render_template('index.html',userlist=userlist,mapbox_access_token=mapbox_access_token,deplist=deplist,intercomlist=intercomlist,communelist=communelist,referencelist=referencelist,donnes_infralist=donnes_infralist)
+  req=get_filters()
+  return render_template('index.html',mapbox_access_token=mapbox_access_token,req=req)
 
 @app.route('/index_get_data')
 def stuff():

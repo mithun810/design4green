@@ -4,7 +4,7 @@
 {% block body %}
 
 <div class="starter-template">
-  <h1>Bootstrap starter template</h1>
+  <h1>INR index</h1>
   <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
 </div>
 
@@ -117,14 +117,14 @@
       </div>
 
 
-      <div class="col-md-2" style="background-color:blue;">
+      <div class="col-md-2" style="background-color:whitesmoke;">
               
            
       <body>
         <form action="/showusername">      
         <h4>Region</h4>
         <select id="currentuser" name="currentuser">
-        {% for user in userlist %}
+        {% for user in req["region"] %}
           <option value="{{user}}">{{user}}</option>
         {% endfor %}
         </select>
@@ -132,7 +132,7 @@
         <form action="/showusername">      
           <h4>Department</h4>
           <select id="currentuser" name="currentuser">
-          {% for user in userlist %}
+          {% for user in req["department"] %}
             <option value="{{user}}">{{user}}</option>
           {% endfor %}
           </select>
@@ -140,7 +140,7 @@
           <form action="/showusername">      
             <h4>Intercommunalites</h4>
             <select id="currentuser" name="currentuser">
-            {% for user in userlist %}
+            {% for user in req["intercommunalities"] %}
               <option value="{{user}}">{{user}}</option>
             {% endfor %}
             </select>
@@ -148,7 +148,7 @@
             <form action="/showusername">      
               <h4>Commune</h4>
               <select id="currentuser" name="currentuser">
-              {% for user in userlist %}
+              {% for user in req["commune"] %}
                 <option value="{{user}}">{{user}}</option>
               {% endfor %}
               </select>
@@ -156,7 +156,7 @@
               <form action="/showusername">      
                 <h4>Point of Reference</h4>
                 <select id="currentuser" name="currentuser">
-                {% for user in userlist %}
+                {% for user in req["Choix de Point Reference"] %}
                   <option value="{{user}}">{{user}}</option>
                 {% endfor %}
                 </select>
@@ -166,7 +166,7 @@
                 <form action="/showusername">      
                   <h4>Donnes-infra</h4>
                   <select id="currentuser" name="currentuser">
-                  {% for user in userlist %}
+                  {% for user in req["donnees infra-communales"] %}
                     <option value="{{user}}">{{user}}</option>
                   {% endfor %}
                   </select>

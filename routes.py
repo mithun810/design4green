@@ -16,7 +16,7 @@ db.Model.metadata.reflect(db.engine)
 @app.route('/')
 @app.route('/index.html')
 def index():
-    print("Total number of schools is", models.School.query.count())
+    print("Total number of records is", models.data_indexed.query.count())
     return render_template('index.html', the_title='Tiger Home Page')
 
 @app.route('/symbol.html')

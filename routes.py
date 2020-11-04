@@ -15,8 +15,12 @@ db.Model.metadata.reflect(db.engine)
 @app.route('/')
 @app.route('/index.html')
 def index():
+    userlist = [['Bangalore'], ['Delhi'], ['Chennai']]
+    deplist=[['Bangalore'], ['Delhi'], ['Chennai']]
+    intercomlist=[['Bangalore'], ['Delhi'], ['Chennai']]
+    mapbox_access_token = 'pk.eyJ1Ijoidm5pc2hhbnQxMDEyIiwiYSI6ImNraDNoYmIyNzBhZTcycnF5ZTRmamttNmEifQ.0f6AIvvxNgBhNX_zvbhIBw'
     print("Total number of schools is", models.School.query.count())
-    return render_template('index.html')
+    return render_template('index.html',userlist=userlist,mapbox_access_token=mapbox_access_token,deplist=deplist,intercomlist=intercomlist)
 
 @app.route('/index_get_data')
 def stuff():

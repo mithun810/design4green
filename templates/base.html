@@ -16,9 +16,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
  
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/metisMenu.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/slicknav.min.css') }}">
+     
     <!-- amcharts css -->
     <!-- style css -->
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/typography.min.css') }}">
@@ -26,7 +24,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/responsive.min.css') }}">
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
-	<link href='https://api.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
+	<link href='{{ url_for('static', filename='assets/css/mapbox-gl.min.css' rel='stylesheet' />
     <!-- modernizr css -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
         

@@ -3,20 +3,73 @@ import models
 
 def get_data(filters=None):
     if filters:
-        if filters["region"]["status"] is True:
-            regions = models.data_indexed.query.filter(
-                models.data_indexed.region == filters["region"]["name"]).distinct().all()
-            dept_filters = []
-            for reg in regions:
-                dept_filters.append(reg.Department)
-            return dept_filters
-        elif filters["department"]["status"] is True:
-            departments = models.data_indexed.query.filter(
-                models.data_indexed.region == filters["department"]["name"]).distinct().all()
-            int_comms_filters = []
-            for int_comm in departments:
-                int_comms_filters.append(int_comm.intercommunalite)
-            return int_comms_filters
+        donnees=filters["donnees_infra_communales"]
+        reference=filters["Choix de Point Reference"]
+        distinct_filter=[]
+        if filters["change"] == "region" :
+            region=filters["region"]
+            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Department).filter(models.data_indexed.region == region).distinct().all()]
+            result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region)
+        elif filters["change"] == "department" :
+            region=filters["region"]
+            department=filters["department"]
+            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Department).filter(models.data_indexed.region == region,models.data_indexed.Department==department).distinct().all()]
+            result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region,models.data_indexed.Department==department)
+        elif filters["change"] == "intercommunalities" :
+            region=filters["region"]
+            department=filters["department"]
+            intercommunalities=filters["intercommunalities"]
+            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Department).filter(models.data_indexed.region == region,models.data_indexed.Department==department,models.data_indexed.intercommunalite==intercommunalities).distinct().all()]
+            result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region,models.data_indexed.Department==department,models.data_indexed.intercommunalite==intercommunalities)
+        elif filters["change"] == "commune" :
+            region=filters["region"]
+            department=filters["department"]
+            intercommunalities=filters["intercommunalities"]
+            commune=filters["commune"]
+            result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region,models.data_indexed.Department==department,models.data_indexed.intercommunalite==intercommunalities,models.data_indexed.Commune==commune)
+        # "Tout", "Region", "Department", "Intercommunalite"]
+        if reference == "Region":
+            result = result.order_by(models.data_indexed.score_global_region.desc()).limit(100).offset(1*100).all()
+        elif reference == "Department":
+            result = result.order_by(models.data_indexed.score_global_department.desc()).limit(100).offset(1*100).all()
+        elif reference == "Intercommunalite":
+            result = result.order_by(models.data_indexed.score_global_intercommunalite.desc()).limit(100).offset(1*100).all()
+        Final_result=[]
+        i = 1
+        for r in result:
+            data = {}
+            data["Nom Com"] = r.Commune
+            data["Code Iris"] = r.code_iris
+            data["Rank of ScoreGlobal"] = i
+            data["Nom Iris"] = r.nom_iris
+            data["Population"] = r.population
+            if reference == "Region":
+                data["Score Global"] = r.score_global_region
+                data["Acces Aux_interfaces_numeriques_intercommunalite"] = r.access_aux_interfaces_numeriques_region
+                data["Access Al_information_intercommunalite"] = r.access_al_information_region
+                data["competences_administative_intercommunalite"] = r.competences_administative_region
+                data["competence_numeriques_intercommunalite"] = r.competence_numeriques_region
+                data["global_access_intercommunalite"] = r.global_access_region
+                data["global_competence_intercommunalite"] = r.global_competence_region
+            elif reference == "Department":
+                data["Score Global"] = r.score_global_region
+                data["Acces Aux_interfaces_numeriques_intercommunalite"] = r.access_aux_interfaces_numeriques_departement
+                data["Access Al_information_intercommunalite"] = r.access_al_information_departement
+                data["competences_administative_intercommunalite"] = r.competences_administative_departement
+                data["competence_numeriques_intercommunalite"] = r.competence_numeriques_departement
+                data["global_access_intercommunalite"] = r.global_access_departement
+                data["global_competence_intercommunalite"] = r.global_competence_departement
+            elif reference == "Intercommunalite":
+                data["Score Global"] = r.score_global_region
+                data["Acces Aux_interfaces_numeriques_intercommunalite"] = r.access_aux_interfaces_numeriques_intercommunalite
+                data["Access Al_information_intercommunalite"] = r.access_al_information_intercommunalite
+                data["competences_administative_intercommunalite"] = r.competences_administative_intercommunalite
+                data["competence_numeriques_intercommunalite"] = r.competence_numeriques_intercommunalite
+                data["global_access_intercommunalite"] = r.global_access_intercommunalite
+                data["global_competence_intercommunalite"] = r.global_competence_intercommunalite
+            i = i+1
+            Final_result.append(data)
+        return Final_result, distinct_filter
     else:
         result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == "Non").order_by(
             models.data_indexed.score_global_region.desc()).limit(100).offset(1*100).all()
@@ -75,6 +128,13 @@ def get_filters(filters=None):
             models.data_indexed.Commune).distinct().all()]
         filters["Choix de Point Reference"] = [
             "Tout", "Region", "Department", "Intercommunalite"]
-        filters["donnees infra-communales"] = ["Oui", "Non"]
+        filters["donnees_infra_communales"] = ["Oui", "Non"]
 
     return filters
+
+if __name__ == '__main__':
+    filters={"change":"region","region":"AUVERGNE RHONE ALPES","donnees_infra_communales":"Non","Choix de Point Reference":"Region"}
+    data, dist_filters=get_data(filters)
+    from pprint import pprint
+    # pprint(data)
+    print(dist_filters)

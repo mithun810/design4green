@@ -9,7 +9,7 @@ app = Flask(__name__)
 SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
 # 'mysql://username:password@server/db'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+ os.path.join(basedir, 'designforgreen.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:admin@localhost:6006/dreamgreen'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost:3306/greendesign'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 db.Model.metadata.reflect(db.engine)

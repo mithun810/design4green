@@ -70,7 +70,10 @@ def get_data(filters=None):
                 data["global_competence_intercommunalite"] = r.global_competence_intercommunalite
             i = i+1
             Final_result.append(data)
-        return Final_result, distinct_filter
+            filtered_result = dict()
+            filtered_result["Final_result"] = Final_result
+            filtered_result["distinct_filter"] = distinct_filter
+            return filtered_result
     else:
         result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == "Non").order_by(
             models.data_indexed.score_global_region.desc()).limit(100).offset(1*100).all()
@@ -102,7 +105,9 @@ def get_data(filters=None):
             i = i+1
             Final_result.append(data)
     # print("final\n",Final_result)
-    return Final_result
+    all_filters = dict()
+    all_filters["Final_result"] = Final_result
+    return all_filters
 
 
 def get_filters(filters=None):

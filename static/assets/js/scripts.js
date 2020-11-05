@@ -118,7 +118,18 @@
             dataType: 'json',
             contentType: 'application/json',
             data: JSON.stringify(val),
-            success: function(response){ console.log(response.data)},
+            success: function(response){ 
+                console.log(response.data); 
+                $("#inputDepartment").html("");+
+
+                $(response.data.distinct_filter).each(function () {
+                    $("<option />", {
+                        val: this,
+                        text: this
+                    }).appendTo("#inputDepartment");
+                });
+
+            },
             error: function(error){console.log(error)}
         });
     })

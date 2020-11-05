@@ -141,16 +141,3 @@ def get_filters(filters=None):
         filters["donnees_infra_communales"] = ["Oui", "Non"]
 
     return filters
-
-if __name__ == '__main__':
-    # filters={"change":"region","region":"AUVERGNE RHONE ALPES","donnees_infra_communales":"Non","Choix_de_Point_Reference":"Region"}
-    filters={"Choix_de_Point_Reference": "Region",
-        "change":"intercommunalities",
-        "department": "SEINE MARITIME",
-        "donnees_infra_communales": "Non",
-        "intercommunalities": "CA Fécamp Caux Littoral Agglo",
-        "region": "NORMANDIE"}
-    filtered_result=get_data(filters)
-    # from pprint import pprint
-    # pprint(filtered_result["Final_result"])
-    print("hi",len(filtered_result["Final_result"]),filtered_result["distinct_filter"])

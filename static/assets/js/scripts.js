@@ -122,17 +122,17 @@
             success: function(response){ 
                 console.log(response.data); 
                 $("#inputDepartment").html("");
+                var optionText = 'All'; 
+                var optionValue = 'All'; 
+      
+                $('#inputDepartment').append(new Option(optionText, optionValue)); 
                 $(response.data.distinct_filter).each(function () {
                     $("<option />", {
                         val: this,
                         text: this
                     }).appendTo("#inputDepartment");
-                });
-                var optionText = 'All'; 
-                var optionValue = 'All'; 
-      
-                $('#inputDepartment').append(new Option(optionText, optionValue)); 
-
+                });                
+                $('#inputDepartment option[value="All"]').attr("selected",true);
 
             },
             error: function(error){console.log(error)}

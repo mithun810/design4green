@@ -133,6 +133,7 @@
                     }).appendTo("#inputDepartment");
                 });                
                 $('#inputDepartment option[value="All"]').attr("selected",true);
+                $("#inputDepartment").prop("disabled", false);  
 
             },
             error: function(error){console.log(error)}
@@ -158,17 +159,19 @@
              success: function(response){ 
                  console.log(response.data); 
                  $("#inputInterCommunalities").html("");
+                 
+                 var optionText = 'All'; 
+                 var optionValue = 'All'; 
+       
+                 $('#inputInterCommunalities').append(new Option(optionText, optionValue)); 
                  $(response.data.distinct_filter).each(function () {
                      $("<option />", {
                          val: this,
                          text: this
                      }).appendTo("#inputInterCommunalities");
                  });
-                 var optionText = 'All'; 
-                 var optionValue = 'All'; 
-       
-                 $('#inputInterCommunalities').append(new Option(optionText, optionValue)); 
- 
+                 $('#inputDepartment option[value="All"]').attr("selected",true);
+                 $("#inputInterCommunalities").prop("disabled", false); 
  
              },
              error: function(error){console.log(error)}
@@ -195,17 +198,18 @@
              success: function(response){ 
                  console.log(response.data); 
                  $("#inputCommune").html("");
+                 var optionText = 'All'; 
+                 var optionValue = 'All'; 
+       
+                 $('#inputCommune').append(new Option(optionText, optionValue)); 
                  $(response.data.distinct_filter).each(function () {
                      $("<option />", {
                          val: this,
                          text: this
                      }).appendTo("#inputCommune");
                  });
-                 var optionText = 'All'; 
-                 var optionValue = 'All'; 
-       
-                 $('#inputCommune').append(new Option(optionText, optionValue)); 
- 
+                 $('#inputDepartment option[value="All"]').attr("selected",true);
+                 $("#inputCommune").prop("disabled", false); 
  
              },
              error: function(error){console.log(error)}

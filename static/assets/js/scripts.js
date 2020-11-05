@@ -35,8 +35,9 @@
     ==================================*/
      
     if ($('#dataTable3').length) {
+        
         $('#dataTable3').DataTable( {
-            dom: 'Bfrtip',
+            dom: 'Bfrtip', 
         buttons: [
             'copyHtml5',
             'excelHtml5',

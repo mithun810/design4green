@@ -5,9 +5,9 @@ import os
 from utils import get_data, get_filters
 import constants
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+# basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
-SECRET_KEY = "Add your secret key"
+# SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
 # 'mysql://username:password@server/db'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+ os.path.join(basedir, 'designforgreen.db')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:'+constants.db_config['password']+'@localhost:3306/'+constants.db_config['dbname']
@@ -21,7 +21,13 @@ db.Model.metadata.reflect(db.engine)
 @app.route('/')
 # @app.route('/index.html')
 def index():
- 
+  userlist = ['Bangalore', 'Delhi', 'Chennai']
+  deplist=['Bangalore', 'Delhi', 'Chennai']
+  intercomlist=['Bangalore', 'Delhi', 'Chennai']
+  communelist=['Bangalore', 'Delhi', 'Chennai']
+  referencelist=['Bangalore', 'Delhi', 'Chennai']
+  donnes_infralist=['Bangalore', 'Delhi', 'Chennai']
+  intercomlist=[['Bangalore'], ['Delhi'], ['Chennai']]
   mapbox_access_token = 'pk.eyJ1Ijoidm5pc2hhbnQxMDEyIiwiYSI6ImNraDNoYmIyNzBhZTcycnF5ZTRmamttNmEifQ.0f6AIvvxNgBhNX_zvbhIBw'
   req=get_filters()
   data=get_data()
@@ -46,4 +52,4 @@ def myth():
     return render_template('myth.html', the_title='Tiger in Myth and Legend')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

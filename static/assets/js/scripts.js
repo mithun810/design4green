@@ -121,7 +121,6 @@
             success: function(response){ 
                 console.log(response.data); 
                 $("#inputDepartment").html("");+
-
                 $(response.data.distinct_filter).each(function () {
                     $("<option />", {
                         val: this,

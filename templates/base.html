@@ -27,6 +27,57 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/responsive.min.css') }}">
     <!-- modernizr css -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style>
+        .container {
+          max-width: 70%;
+          max-height: 50%;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .inputBox {
+            width: 50%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .rangeslider{ 
+      width: 50%; 
+  } 
+    
+    .myslider { 
+      -webkit-appearance: none; 
+      background: #FCF3CF  ; 
+      width: 50%; 
+      height: 20px; 
+      opacity: 2; 
+     } 
+    
+    
+    .myslider::-webkit-slider-thumb { 
+      -webkit-appearance: none; 
+      cursor: pointer; 
+      background: #34495E  ; 
+      width: 5%; 
+      height: 20px; 
+  } 
+    
+    
+    .myslider:hover { 
+      opacity: 1; 
+    }
+      </style>
 </head>
 
 <body>

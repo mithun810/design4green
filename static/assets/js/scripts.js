@@ -134,7 +134,13 @@
                     }).appendTo("#inputDepartment");
                 });                
                 $('#inputDepartment option[value="All"]').attr("selected",true);
-                $("#inputDepartment").prop("disabled", false);  
+                $("#inputDepartment").prop("disabled", false);
+                $('#inputInterCommunalities').prop("disabled", true);
+                $('#inputCommune').prop("disabled", true);  
+                $('#inputInterCommunalities option[value="All"]').attr("selected",true);
+                $('#inputCommune option[value="All"]').attr("selected",true);
+
+                
 
             },
             error: function(error){console.log(error)}
@@ -173,6 +179,8 @@
                  });
                  $('#inputDepartment option[value="All"]').attr("selected",true);
                  $("#inputInterCommunalities").prop("disabled", false); 
+                 $("#inputCommune").prop("disabled", true);
+                 $('#inputCommune option[value="All"]').attr("selected",true);
  
              },
              error: function(error){console.log(error)}

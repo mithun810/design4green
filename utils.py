@@ -50,11 +50,11 @@ def get_data(filters=None):
         # "Tout", "Region", "Department", "Intercommunalite"]
         total_count=result.count()
         if reference == "Region":
-            result = result.order_by(models.data_indexed.score_global_region.desc()).limit(100).offset(0).all()
+            result = result.order_by(models.data_indexed.score_global_region.desc()).all()
         elif reference == "Department":
-            result = result.order_by(models.data_indexed.score_global_department.desc()).limit(100).offset(0).all()
+            result = result.order_by(models.data_indexed.score_global_department.desc()).all()
         elif reference == "Intercommunalities":
-            result = result.order_by(models.data_indexed.score_global_intercommunalite.desc()).limit(100).offset(0).all()
+            result = result.order_by(models.data_indexed.score_global_intercommunalite.desc()).all()
         Final_result=[]
         i = 1
         for r in result:
@@ -98,7 +98,7 @@ def get_data(filters=None):
         return filtered_result
     else:
         result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == "Non").order_by(
-            models.data_indexed.score_global_region.desc()).all()
+            models.data_indexed.score_global_region.desc()).limit(1000).offset(0).all()
         total_result_count = models.data_indexed.query.filter(
             models.data_indexed.donnes_infra_communales == "Non").count()
         i = 1

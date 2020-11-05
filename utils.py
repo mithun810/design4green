@@ -48,6 +48,7 @@ def get_data(filters=None):
             result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department),models.data_indexed.intercommunalite.in_(intercommunalities),models.data_indexed.Commune.in_(commune))
         
         # "Tout", "Region", "Department", "Intercommunalite"]
+        total_count=result.count()
         if reference == "Region":
             result = result.order_by(models.data_indexed.score_global_region.desc()).limit(100).offset(0).all()
         elif reference == "Department":
@@ -93,13 +94,13 @@ def get_data(filters=None):
         filtered_result = dict()
         filtered_result["Final_result"] = Final_result
         filtered_result["distinct_filter"] = distinct_filter
+        filtered_result["total_count"] = total_count
         return filtered_result
     else:
         result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == "Non").order_by(
             models.data_indexed.score_global_region.desc()).limit(100).offset(0).all()
         total_result_count = models.data_indexed.query.filter(
             models.data_indexed.donnes_infra_communales == "Non").count()
-        print("total", total_result_count)
         i = 1
         for r in result:
             data = {}
@@ -129,7 +130,7 @@ def get_data(filters=None):
     # print("final\n",Final_result)
     all_filters = dict()
     all_filters["Final_result"] = Final_result
-    return all_filters
+    return all_filters, total_result_count
 
 
 def get_filters(filters=None):

@@ -54,7 +54,7 @@
                       <div class="form-group col-md-3">
                           <label for="inputDepartment">Department</label>
                           <select id="inputDepartment" class="form-control">
-                              <option>ALL</option>
+                              <option value="ALL"></option>
                                 {% for user in req["department"] %}
                                 <option value="{{user}}">{{user}}</option>
                                 {% endfor %}
@@ -63,7 +63,7 @@
                       <div class="form-group col-md-3">
                           <label for="inputInterCommunalities">Intercommunalities</label>
                           <select id="inputInterCommunalities" class="form-control">
-                              <option>Intercommunalities</option>
+                            <option value="ALL"></option>
                               {% for user in req["intercommunalities"] %}
                                 <option value="{{user}}">{{user}}</option>
                                 {% endfor %}
@@ -72,7 +72,7 @@
                       <div class="form-group col-md-3">
                           <label for="inputCommune">Commune</label>
                           <select id="inputCommune" class="form-control">
-                              <option>Commune</option>
+                            <option value="ALL"></option>
                               {% for user in req["commune"] %}
                              <option value="{{user}}">{{user}}</option>
                                 {% endfor %}
@@ -81,17 +81,17 @@
                       <div class="form-group col-md-3">
                           <label for="inputChoice">choix de point références</label>
                           <select id="inputChoice" class="form-control">
-                              <option>Region</option>
-                              <option>Department</option>
-                              <option>Intercommunalities</option>
+                              <option value ="Region"></option>
+                              <option value="Department">Department</option>
+                              <option value="Intercommunalities">Intercommunalities</option>
                             </select>
                       </div>
                       
                       <div class="form-group col-md-3">
                           <label for="inputChoice">données infra-communales</label>
                           <select id="inputDonnes" class="form-control">
-                              <option>Non</option>
-                              <option>Oui</option>
+                              <option value="Non"></option>
+                              <option value="Oui"></option>
                               {% for user in req["donnees infra-communales"] %}
                              <option value="{{user}}">{{user}}</option>
                                  {% endfor %}

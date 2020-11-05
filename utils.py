@@ -98,7 +98,7 @@ def get_data(filters=None):
         return filtered_result
     else:
         result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == "Non").order_by(
-            models.data_indexed.score_global_region.desc()).limit(100).offset(0).all()
+            models.data_indexed.score_global_region.desc()).all()
         total_result_count = models.data_indexed.query.filter(
             models.data_indexed.donnes_infra_communales == "Non").count()
         i = 1

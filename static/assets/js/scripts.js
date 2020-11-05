@@ -59,6 +59,8 @@
             'csvHtml5' 
         ],
         "deferLoading": 50,
+        "info": false,
+        recordsTotal:data.total_count,
         "deferRender": true,
             scrollY:        "500px",
             scrollX:        true,

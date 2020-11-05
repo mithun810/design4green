@@ -37,7 +37,7 @@
     if ($('#dataTable3').length) {
         
         $('#dataTable3').DataTable( {
-            dom: 'Bfrtip', 
+            dom: 'lBfrtip', 
             data:data.Final_result,
             columns: [
                 { data: 'Nom Com' },
@@ -58,10 +58,13 @@
             'excelHtml5',
             'csvHtml5' 
         ],
+        "deferLoading": 50,
+        "deferRender": true,
             scrollY:        "500px",
             scrollX:        true,
             scrollCollapse: true,
             paging:         true,
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
             fixedColumns:   {
                 leftColumns: 4,
                 heightMatch: 'none'

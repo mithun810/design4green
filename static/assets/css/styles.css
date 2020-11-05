@@ -2839,3 +2839,5 @@ table.dataTable thead td {
     color: #555;
 } 
 /*-------------------- END Offset Sidebar ------------------- */
+
+.dt-buttons{padding: 2px 10px;}

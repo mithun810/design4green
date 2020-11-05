@@ -5,7 +5,7 @@ def get_data(filters=None):
     Final_result=[]
     if filters:
         donnees=filters["donnees_infra_communales"]
-        reference=filters["Choix de Point Reference"]
+        reference=filters["Choix_de_Point_Reference"]
         distinct_filter=[]
         if filters["change"] == "region" :
             region=filters["region"]
@@ -14,13 +14,13 @@ def get_data(filters=None):
         elif filters["change"] == "department" :
             region=filters["region"]
             department=filters["department"]
-            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Department).filter(models.data_indexed.region == region,models.data_indexed.Department==department).distinct().all()]
+            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.intercommunalite).filter(models.data_indexed.region == region,models.data_indexed.Department==department).distinct().all()]
             result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region,models.data_indexed.Department==department)
         elif filters["change"] == "intercommunalities" :
             region=filters["region"]
             department=filters["department"]
             intercommunalities=filters["intercommunalities"]
-            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Department).filter(models.data_indexed.region == region,models.data_indexed.Department==department,models.data_indexed.intercommunalite==intercommunalities).distinct().all()]
+            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Commune).filter(models.data_indexed.region == region,models.data_indexed.Department==department,models.data_indexed.intercommunalite==intercommunalities).distinct().all()]
             result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region,models.data_indexed.Department==department,models.data_indexed.intercommunalite==intercommunalities)
         elif filters["change"] == "commune" :
             region=filters["region"]
@@ -71,7 +71,10 @@ def get_data(filters=None):
                 data["global_competence_intercommunalite"] = r.global_competence_intercommunalite
             i = i+1
             Final_result.append(data)
-        return Final_result, distinct_filter
+            filtered_result = dict()
+            filtered_result["Final_result"] = Final_result
+            filtered_result["distinct_filter"] = distinct_filter
+            return filtered_result
     else:
         result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == "Non").order_by(
             models.data_indexed.score_global_region.desc()).limit(100).offset(1*100).all()
@@ -105,7 +108,9 @@ def get_data(filters=None):
             i = i+1
             Final_result.append(data)
     # print("final\n",Final_result)
-    return Final_result
+    all_filters = dict()
+    all_filters["Final_result"] = Final_result
+    return all_filters
 
 
 def get_filters(filters=None):
@@ -114,7 +119,7 @@ def get_filters(filters=None):
         region = filters["region"]
         intercommunalities = filters["intercommunalities"]
         commune = filters["commune"]
-        point_reference = filters["Choix de Point Reference"]
+        point_reference = filters["Choix_de_Point_Reference"]
         infra_communales = filters["donnees infra-communales"]
         if commune == "All":
             filters["commune"] = [i[0] for i in models.data_indexed.query.with_entities(
@@ -130,7 +135,7 @@ def get_filters(filters=None):
             models.data_indexed.intercommunalite).distinct().all()]
         filters["commune"] = [i[0] for i in models.data_indexed.query.with_entities(
             models.data_indexed.Commune).distinct().all()]
-        filters["Choix de Point Reference"] = [
+        filters["Choix_de_Point_Reference"] = [
             "Tout", "Region", "Department", "Intercommunalite"]
         filters["donnees_infra_communales"] = ["Oui", "Non"]
 

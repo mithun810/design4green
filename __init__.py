@@ -19,7 +19,7 @@ db.Model.metadata.reflect(db.engine)
 
 # two decorators, same function
 @app.route('/')
-# @app.route('/index.html')
+# @app.route('/index.html',methods=['GET'])
 def index():
   userlist = ['Bangalore', 'Delhi', 'Chennai']
   deplist=['Bangalore', 'Delhi', 'Chennai']
@@ -36,11 +36,17 @@ def index():
 @app.route('/index_get_data',methods=['POST'])
 def stuff():
   # Assume data comes from somewhere else
+  print("Hello from stuff")
   filters=request.get_json()
+  print(filters)
   data = {
     "data": get_data(filters)
   }
+  print(data)
+  mapbox_access_token = 'pk.eyJ1Ijoidm5pc2hhbnQxMDEyIiwiYSI6ImNraDRpazVhZTA2aGkzNWswZWYxd2F2MGcifQ.Mf3OEq6F9oZ1xTY_IKNpWQ'
+  
   return jsonify(data)
+  #return render_template('index.html',mapbox_access_token=mapbox_access_token,req=data)
 
 
 @app.route('/symbol.html')

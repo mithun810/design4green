@@ -47,55 +47,45 @@
                             <option>ALL</option>
                             {% for user in req["region"] %}
                             <option value="{{user}}">{{user}}</option>
-                          {% endfor %}
+                           {% endfor %}
                               
                             </select>
                       </div>
                       <div class="form-group col-md-3">
                           <label for="inputDepartment">Department</label>
-                          <select id="inputDepartment" class="form-control">
-                              <option value="ALL"></option>
-                                {% for user in req["department"] %}
-                                <option value="{{user}}">{{user}}</option>
-                                {% endfor %}
+                          <select id="inputDepartment" class="form-control" disabled>
+                              <option value="ALL">ALL</option>
+                                
                             </select>
                       </div>
                       <div class="form-group col-md-3">
                           <label for="inputInterCommunalities">Intercommunalities</label>
-                          <select id="inputInterCommunalities" class="form-control">
-                            <option value="ALL"></option>
-                              {% for user in req["intercommunalities"] %}
-                                <option value="{{user}}">{{user}}</option>
-                                {% endfor %}
+                          <select id="inputInterCommunalities" class="form-control" disabled>
+                              <option value="ALL">ALL</option>
+
                             </select>
                       </div>
                       <div class="form-group col-md-3">
                           <label for="inputCommune">Commune</label>
-                          <select id="inputCommune" class="form-control">
-                            <option value="ALL"></option>
-                              {% for user in req["commune"] %}
-                             <option value="{{user}}">{{user}}</option>
-                                {% endfor %}
+                          <select id="inputCommune" class="form-control" disabled>
+                              <option value="ALL">ALL</option> 
                             </select>
                       </div>
                       <div class="form-group col-md-3">
                           <label for="inputChoice">choix de point références</label>
                           <select id="inputChoice" class="form-control">
-                              <option value ="Region"></option>
-                              <option value="Department">Department</option>
-                              <option value="Intercommunalities">Intercommunalities</option>
-                            </select>
+                            <option value="Region" selected>Region</option>
+                            <option value="Department">Department</option>
+                            <option value="Intercommunalities">Intercommunalities</option>
+                          </select>
                       </div>
                       
                       <div class="form-group col-md-3">
-                          <label for="inputChoice">données infra-communales</label>
+                          <label for="inputChoice">données_infra_communales</label>
                           <select id="inputDonnes" class="form-control">
-                              <option value="Non"></option>
-                              <option value="Oui"></option>
-                              {% for user in req["donnees infra-communales"] %}
-                             <option value="{{user}}">{{user}}</option>
-                                 {% endfor %}
-                            </select>
+                              <option value="Non" selected></option>
+                              <option value="Oui"></option> 
+                          </select>
                       </div>
                   </div>  
               
@@ -105,7 +95,6 @@
       </div>
   </div>
   <!-- page title area end -->
-  <
    
   <div class="main-content-inner">
       <div class="row">
@@ -114,18 +103,14 @@
                 <div id='map' style='width: 95%; height:300px;'></div><br/><br/>
               </div>
               <script>
-                var data={{data|tojson|safe}};
-                console.log(data);
-                var longitude, latitude;
-                
-                    console.log(data[0]["geo_points_lat"]);
+                var data={{data|tojson|safe}};                
+                var longitude, latitude;                   
                     latitude=0.0;
                     longitude=0.0
                 for (d in data)
                 {
                   latitude= data[d]["geo_points_lat"];
-                  longitude=data[d]["geo_points_lon"];
-                  
+                  longitude=data[d]["geo_points_lon"];                 
                   
                   }
                   if(latitude!="0.0")
@@ -226,9 +211,8 @@
                                 <th>global_competence_intercommunalite</th>
                               </tr>
                             </thead>
-                          <tbody>
-                            {% for user in data %} 
-                            
+                          <tbody> 
+                            {% for user in data['Final_result'] %} 
                             <tr>
                               <td>{{user['Nom Com']}}</td>
                               <td>{{user['Code Iris']}}</td>

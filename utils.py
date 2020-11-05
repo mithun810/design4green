@@ -132,7 +132,7 @@ def get_filters(filters=None):
             models.data_indexed.intercommunalite).distinct().all()]
         filters["commune"] = [i[0] for i in models.data_indexed.query.with_entities(
             models.data_indexed.Commune).distinct().all()]
-        filters["Choix de Point Reference"] = [
+        filters["Choix_de_Point_Reference"] = [
             "Tout", "Region", "Department", "Intercommunalite"]
         filters["donnees_infra_communales"] = ["Oui", "Non"]
 

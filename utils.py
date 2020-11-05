@@ -130,7 +130,7 @@ def get_data(filters=None):
     # print("final\n",Final_result)
     all_filters = dict()
     all_filters["Final_result"] = Final_result
-    filtered_result["total_count"] = total_result_count
+    all_filters["total_count"] = total_result_count
     return all_filters
 
 

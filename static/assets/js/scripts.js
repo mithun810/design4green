@@ -38,6 +38,21 @@
         
         $('#dataTable3').DataTable( {
             dom: 'Bfrtip', 
+            data:data.Final_result,
+            columns: [
+                { data: 'Nom Com' },
+                { data: 'Code Iris' },
+                { data: 'Rank of ScoreGlobal' },
+                { data: 'Nom Iris' },
+                { data: 'Population' },
+                { data: 'Score Global' },
+                { data: 'Acces Aux_interfaces_numeriques_intercommunalite' },
+                { data: 'Access Al_information_intercommunalite' },
+                { data: 'competences_administative_intercommunalite' },
+                { data: 'competence_numeriques_intercommunalite' },
+                { data: 'global_access_intercommunalite' },
+                { data: 'global_competence_intercommunalite' }
+            ],
         buttons: [
             'copyHtml5',
             'excelHtml5',
@@ -123,8 +138,8 @@
             success: function(response){ 
                 console.log(response.data); 
                 $("#inputDepartment").html("");
-                var optionText = 'All'; 
-                var optionValue = 'All'; 
+                var optionText = 'ALL'; 
+                var optionValue = 'ALL'; 
       
                 $('#inputDepartment').append(new Option(optionText, optionValue)); 
                 $(response.data.distinct_filter).each(function () {
@@ -133,14 +148,17 @@
                         text: this
                     }).appendTo("#inputDepartment");
                 });                
-                $('#inputDepartment option[value="All"]').attr("selected",true);
+                $('#inputDepartment option[value="ALL"]').attr("selected",true);
                 $("#inputDepartment").prop("disabled", false);
                 $('#inputInterCommunalities').prop("disabled", true);
                 $('#inputCommune').prop("disabled", true);  
-                $('#inputInterCommunalities option[value="All"]').attr("selected",true);
-                $('#inputCommune option[value="All"]').attr("selected",true);
+                $('#inputInterCommunalities option[value="ALL"]').attr("selected",true);
+                $('#inputCommune option[value="ALL"]').attr("selected",true);
 
-                
+                var datatable = $('#dataTable3').DataTable();
+                datatable.clear().draw();
+                datatable.rows.add(response.data.Final_result); // Add new data
+                datatable.columns.adjust().draw(); // Redraw the DataTable
 
             },
             error: function(error){console.log(error)}
@@ -167,8 +185,8 @@
                  console.log(response.data); 
                  $("#inputInterCommunalities").html("");
                  
-                 var optionText = 'All'; 
-                 var optionValue = 'All'; 
+                 var optionText = 'ALL'; 
+                 var optionValue = 'ALL'; 
        
                  $('#inputInterCommunalities').append(new Option(optionText, optionValue)); 
                  $(response.data.distinct_filter).each(function () {
@@ -177,10 +195,15 @@
                          text: this
                      }).appendTo("#inputInterCommunalities");
                  });
-                 $('#inputDepartment option[value="All"]').attr("selected",true);
+                 $('#inputDepartment option[value="ALL"]').attr("selected",true);
                  $("#inputInterCommunalities").prop("disabled", false); 
                  $("#inputCommune").prop("disabled", true);
-                 $('#inputCommune option[value="All"]').attr("selected",true);
+                 $('#inputCommune option[value="ALL"]').attr("selected",true);
+
+                 var datatable = $('#dataTable3').DataTable();
+                 datatable.clear().draw();
+                 datatable.rows.add(response.data.Final_result); // Add new data
+                 datatable.columns.adjust().draw(); // Redraw the DataTable
  
              },
              error: function(error){console.log(error)}
@@ -207,8 +230,8 @@
              success: function(response){ 
                  console.log(response.data); 
                  $("#inputCommune").html("");
-                 var optionText = 'All'; 
-                 var optionValue = 'All'; 
+                 var optionText = 'ALL'; 
+                 var optionValue = 'ALL'; 
        
                  $('#inputCommune').append(new Option(optionText, optionValue)); 
                  $(response.data.distinct_filter).each(function () {
@@ -217,8 +240,15 @@
                          text: this
                      }).appendTo("#inputCommune");
                  });
-                 $('#inputDepartment option[value="All"]').attr("selected",true);
+                 $('#inputDepartment option[value="ALL"]').attr("selected",true);
                  $("#inputCommune").prop("disabled", false); 
+
+
+                 var datatable = $('#dataTable3').DataTable();
+                 datatable.clear().draw();
+                 datatable.rows.add(response.data.Final_result); // Add new data
+                 datatable.columns.adjust().draw(); // Redraw the DataTable
+ 
  
              },
              error: function(error){console.log(error)}
@@ -245,6 +275,11 @@
              data: JSON.stringify(val),
              success: function(response){ 
                  console.log(response.data); 
+
+                 var datatable = $('#dataTable3').DataTable();
+                 datatable.clear().draw();
+                 datatable.rows.add(response.data.Final_result); // Add new data
+                 datatable.columns.adjust().draw(); // Redraw the DataTable
              },
              error: function(error){console.log(error)}
          });
@@ -270,6 +305,10 @@
              data: JSON.stringify(val),
              success: function(response){ 
                  console.log(response.data); 
+                 var datatable = $('#dataTable3').DataTable();
+                 datatable.clear().draw();
+                 datatable.rows.add(response.data.Final_result); // Add new data
+                 datatable.columns.adjust().draw(); // Redraw the DataTable
              },
              error: function(error){console.log(error)}
          });
@@ -295,6 +334,11 @@
              data: JSON.stringify(val),
              success: function(response){ 
                  console.log(response.data); 
+
+                 var datatable = $('#dataTable3').DataTable();
+                 datatable.clear().draw();
+                 datatable.rows.add(response.data.Final_result); // Add new data
+                 datatable.columns.adjust().draw(); // Redraw the DataTable
              },
              error: function(error){console.log(error)}
          });

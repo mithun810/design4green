@@ -44,7 +44,7 @@
                       <div class="form-group col-md-3">
                           <label for="inputRegion">Region</label>
                           <select id="inputRegion" class="form-control">
-                            <option>ALL</option>
+                            <option value="ALL">ALL</option>
                             {% for user in req["region"] %}
                             <option value="{{user}}">{{user}}</option>
                            {% endfor %}
@@ -209,26 +209,7 @@
                                 <th>global_access_intercommunalite</th>
                                 <th>global_competence_intercommunalite</th>
                               </tr>
-                            </thead>
-                          <tbody> 
-                            {% for user in data['Final_result'] %} 
-                            <tr>
-                              <td>{{user['Nom Com']}}</td>
-                              <td>{{user['Code Iris']}}</td>
-                              <td>{{user['Rank of ScoreGlobal']}}</td>
-                              <td>{{user['Nom Iris']}}</td>
-                              
-                              <td>{{user['Population']}}</td>
-                              <td>{{user['Score Global']}}</td>
-                              <td>{{user['Acces Aux_interfaces_numeriques_intercommunalite']}}</td>
-                              <td>{{user['Access Al_information_intercommunalite']}}</td>
-                              <td>{{user['competences_administative_intercommunalite']}}</td>
-                              <td>{{user['competence_numeriques_intercommunalite']}}</td>
-                              <td>{{user['global_access_intercommunalite']}}</td>
-                              <td>{{user['global_competence_intercommunalite']}}</td>                             
-                            </tr>
-                            {% endfor %}
-                          </tbody>
+                            </thead> 
                       </table>
 
                            

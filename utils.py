@@ -9,19 +9,19 @@ def get_data(filters=None):
         distinct_filter=[]
         if filters["change"] == "region" :
             region=filters["region"]
-            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Department).filter(models.data_indexed.region == region).distinct().all()]
+            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Department).filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region).distinct().all()]
             result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region)
         elif filters["change"] == "department" :
             region=filters["region"]
             department=filters["department"]
-            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.intercommunalite).filter(models.data_indexed.region == region,models.data_indexed.Department==department).distinct().all()]
+            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.intercommunalite).filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region,models.data_indexed.Department==department).distinct().all()]
             result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region,models.data_indexed.Department==department)
         elif filters["change"] == "intercommunalities" :
             region=filters["region"]
             department=filters["department"]
             intercommunalities=filters["intercommunalities"]
             print("here",intercommunalities)
-            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Commune).filter(models.data_indexed.region == region,models.data_indexed.Department==department,models.data_indexed.intercommunalite==intercommunalities).distinct().all()]
+            distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Commune).filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region,models.data_indexed.Department==department,models.data_indexed.intercommunalite==intercommunalities).distinct().all()]
             result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region,models.data_indexed.Department==department,models.data_indexed.intercommunalite==intercommunalities)
         elif filters["change"] == "commune" :
             region=filters["region"]

@@ -103,26 +103,21 @@
                 <div id='map' style='width: 95%; height:300px;'></div><br/><br/>
               </div>
               <script>
-                var data={{data|tojson|safe}}; 
-                console.log(data);
+                var data={{data|tojson|safe}};  
                 var longitude, latitude;
-                
-                    console.log(data['Final_result'][0]["geo_points_lat"]);
+                 
                     latitude=0.0;
                     longitude=0.0
                   for (d in data['Final_result'])
                   {
                     latitude= data['Final_result'][d]["geo_points_lat"];
-                    longitude=data['Final_result'][d]["geo_points_lon"];
-                    console.log("latitude " + latitude);
-                    console.log("longitude "+longitude);                  
+                    longitude=data['Final_result'][d]["geo_points_lon"]; 
                   }
                   if(latitude!="0.0")
                   display_map(longitude, latitude);
                   else
                   console.log("Wrong lat &lon ");
-                
-                console.log(latitude);
+                 
                
                 function display_map(longitude, latitude) {
                   mapboxgl.accessToken = "{{ mapbox_access_token }}"

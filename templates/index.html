@@ -98,19 +98,23 @@
    
   <div class="main-content-inner">
       <div class="row">
-          <div class="col-4 mt-5">
+        <div class="col-4 mt-5">
             <div class="row">
                 <div id='map' style='width: 95%; height:300px;'></div><br/><br/>
               </div>
               <script>
-                var data={{data|tojson|safe}};                
-                var longitude, latitude;                   
+                var data={{data|tojson|safe}};
+                console.log(data);
+                var longitude, latitude;
+                
+                    console.log(data[0]["geo_points_lat"]);
                     latitude=0.0;
                     longitude=0.0
                 for (d in data)
                 {
                   latitude= data[d]["geo_points_lat"];
-                  longitude=data[d]["geo_points_lon"];                 
+                  longitude=data[d]["geo_points_lon"];
+                  
                   
                   }
                   if(latitude!="0.0")

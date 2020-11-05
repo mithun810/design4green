@@ -21,13 +21,7 @@ db.Model.metadata.reflect(db.engine)
 @app.route('/')
 # @app.route('/index.html')
 def index():
-  userlist = ['Bangalore', 'Delhi', 'Chennai']
-  deplist=['Bangalore', 'Delhi', 'Chennai']
-  intercomlist=['Bangalore', 'Delhi', 'Chennai']
-  communelist=['Bangalore', 'Delhi', 'Chennai']
-  referencelist=['Bangalore', 'Delhi', 'Chennai']
-  donnes_infralist=['Bangalore', 'Delhi', 'Chennai']
-  intercomlist=[['Bangalore'], ['Delhi'], ['Chennai']]
+ 
   mapbox_access_token = 'pk.eyJ1Ijoidm5pc2hhbnQxMDEyIiwiYSI6ImNraDNoYmIyNzBhZTcycnF5ZTRmamttNmEifQ.0f6AIvvxNgBhNX_zvbhIBw'
   req=get_filters()
   data=get_data()

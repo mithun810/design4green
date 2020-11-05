@@ -104,4 +104,25 @@
         });
     }
 
+    $('#inputRegion').change(function(){
+       var posturl="/index_get_data";
+       //var posturl = {{ url_for("stuff") }};
+        var val = {region: $(this).val(),
+                    change : "region",
+                    donnees_infra_communales : "Oui",
+                    Choix_de_Point_Reference : "Region"};
+    
+        $.ajax({
+            type: 'POST',
+            url: posturl, 
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(val),
+            success: function(response){ console.log(response.data)},
+            error: function(error){console.log(error)}
+        });
+    })
+
+   
+
 })(jQuery);

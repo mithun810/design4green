@@ -5,7 +5,7 @@ def get_data(filters=None):
     Final_result=[]
     if filters:
         donnees=filters["donnees_infra_communales"]
-        reference=filters["Choix de Point Reference"]
+        reference=filters["Choix_de_Point_Reference"]
         distinct_filter=[]
         if filters["change"] == "region" :
             region=filters["region"]
@@ -111,7 +111,7 @@ def get_filters(filters=None):
         region = filters["region"]
         intercommunalities = filters["intercommunalities"]
         commune = filters["commune"]
-        point_reference = filters["Choix de Point Reference"]
+        point_reference = filters["Choix_de_Point_Reference"]
         infra_communales = filters["donnees infra-communales"]
         if commune == "All":
             filters["commune"] = [i[0] for i in models.data_indexed.query.with_entities(

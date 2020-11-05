@@ -16,7 +16,6 @@ def get_data(filters=None):
             models.data_indexed.region).distinct().all()]
             department=[filters["department"]] if filters["department"] != "ALL" else [i[0] for i in models.data_indexed.query.with_entities(
             models.data_indexed.Department).filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region)).distinct().all()]
-            print("depa\n",department)
             distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.intercommunalite).filter(
             models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department)).distinct().all()]
             result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department))
@@ -36,8 +35,8 @@ def get_data(filters=None):
             models.data_indexed.Department).filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region)).distinct().all()]
             intercommunalities=[filters["intercommunalities"]] if filters["intercommunalities"] != "ALL" else [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.intercommunalite).filter(
             models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department)).distinct().all()]
-            commune=[filters["commune"]] if filters["commune"] != ALL else [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Commune).filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department),models.data_indexed.intercommunalite.in_(intercommunalities)).distinct().all()]
-            result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department),models.data_indexed.intercommunalite.in_(intercommunalities),models.data_indexed.Communein_(commune))
+            commune=[filters["commune"]] if filters["commune"] != "ALL" else [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Commune).filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department),models.data_indexed.intercommunalite.in_(intercommunalities)).distinct().all()]
+            result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department),models.data_indexed.intercommunalite.in_(intercommunalities),models.data_indexed.Commune.in_(commune))
         # "Tout", "Region", "Department", "Intercommunalite"]
         if reference == "Region":
             result = result.order_by(models.data_indexed.score_global_region.desc()).limit(100).offset(0).all()

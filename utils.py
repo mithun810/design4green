@@ -71,10 +71,10 @@ def get_data(filters=None):
                 data["global_competence_intercommunalite"] = r.global_competence_intercommunalite
             i = i+1
             Final_result.append(data)
-            filtered_result = dict()
-            filtered_result["Final_result"] = Final_result
-            filtered_result["distinct_filter"] = distinct_filter
-            return filtered_result
+        filtered_result = dict()
+        filtered_result["Final_result"] = Final_result
+        filtered_result["distinct_filter"] = distinct_filter
+        return filtered_result
     else:
         result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == "Non").order_by(
             models.data_indexed.score_global_region.desc()).limit(100).offset(1*100).all()
@@ -142,8 +142,8 @@ def get_filters(filters=None):
     return filters
 
 if __name__ == '__main__':
-    filters={"change":"region","region":"AUVERGNE RHONE ALPES","donnees_infra_communales":"Non","Choix de Point Reference":"Region"}
-    data, dist_filters=get_data(filters)
+    filters={"change":"region","region":"AUVERGNE RHONE ALPES","donnees_infra_communales":"Non","Choix_de_Point_Reference":"Region"}
+    filtered_result=get_data(filters)
     from pprint import pprint
-    # pprint(data)
-    print(dist_filters)
+    pprint(filtered_result["Final_result"])
+    print("hi",filtered_result["distinct_filter"])

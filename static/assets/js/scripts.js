@@ -47,7 +47,7 @@
             scrollCollapse: true,
             paging:         true,
             fixedColumns:   {
-                leftColumns: 2,
+                leftColumns: 4,
                 heightMatch: 'none'
             }
         } ); 
@@ -107,10 +107,11 @@
     $('#inputRegion').change(function(){
        var posturl="/index_get_data";
        //var posturl = {{ url_for("stuff") }};
-        var val = {region: $(this).val(),
+        var val = {
+                    region: $(this).val(),
                     change : "region",
-                    donnees_infra_communales : "Oui",
-                    Choix_de_Point_Reference : "Region"};
+                    donnees_infra_communales : $("#inputDonnes").val(),
+                    Choix_de_Point_Reference : $("#inputChoice").val()};
     
         $.ajax({
             type: 'POST',
@@ -120,13 +121,18 @@
             data: JSON.stringify(val),
             success: function(response){ 
                 console.log(response.data); 
-                $("#inputDepartment").html("");+
+                $("#inputDepartment").html("");
                 $(response.data.distinct_filter).each(function () {
                     $("<option />", {
                         val: this,
                         text: this
                     }).appendTo("#inputDepartment");
                 });
+                var optionText = 'All'; 
+                var optionValue = 'All'; 
+      
+                $('#inputDepartment').append(new Option(optionText, optionValue)); 
+
 
             },
             error: function(error){console.log(error)}

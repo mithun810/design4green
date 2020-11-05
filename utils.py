@@ -44,6 +44,8 @@ def get_data(filters=None):
             data["Rank of ScoreGlobal"] = i
             data["Nom Iris"] = r.nom_iris
             data["Population"] = r.population
+            data["geo_points_lat"]=r.geo_points.split(",")[0]
+            data["geo_points_lon"]=r.geo_points.split(",")[1]
             if reference == "Region":
                 data["Score Global"] = r.score_global_region
                 data["Acces Aux_interfaces_numeriques_intercommunalite"] = r.access_aux_interfaces_numeriques_region

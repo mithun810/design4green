@@ -242,7 +242,7 @@
      })
 
      $('#inputChoice').change(function(){
-        var posturl="/index_get_data";
+        var posturl="/index_get_data"; 
         //var posturl = {{ url_for("stuff") }};
          var val = {
                      region: $("#inputRegion").val(),

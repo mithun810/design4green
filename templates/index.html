@@ -10,7 +10,7 @@
           <div class="col-md-6 col-sm-8 clearfix">
                
               <div class="search-box pull-left logo">
-                 <img src="{{ url_for('static', filename='assets/images/icon/logo-inr.jpg') }}" alt="Logo" width="250">
+                 <img src="{{ url_for('static', filename='assets/images/icon/logo.png') }}" alt="Logo" width="250">
                  <a href="https://design4green.org/"><img src="{{ url_for('static', filename='assets/images/icon/design4GreenLogo1.png') }}" alt="Logo" width="250"></a>
               </div>
           </div>
@@ -44,7 +44,7 @@
                       <div class="form-group col-md-3">
                           <label for="inputRegion">Region</label>
                           <select id="inputRegion" class="form-control">
-                            <option>ALL</option>
+                            <option value="ALL">ALL</option>
                             {% for user in req["region"] %}
                             <option value="{{user}}">{{user}}</option>
                            {% endfor %}
@@ -103,26 +103,21 @@
                 <div id='map' style='width: 95%; height:300px;'></div><br/><br/>
               </div>
               <script>
-                var data={{data|tojson|safe}}; 
-                console.log(data);
+                var data={{data|tojson|safe}};  
                 var longitude, latitude;
-                
-                    console.log(data['Final_result'][0]["geo_points_lat"]);
+                 
                     latitude=0.0;
                     longitude=0.0
                   for (d in data['Final_result'])
                   {
                     latitude= data['Final_result'][d]["geo_points_lat"];
-                    longitude=data['Final_result'][d]["geo_points_lon"];
-                    console.log("latitude " + latitude);
-                    console.log("longitude "+longitude);                  
+                    longitude=data['Final_result'][d]["geo_points_lon"]; 
                   }
                   if(latitude!="0.0")
                   display_map(longitude, latitude);
                   else
                   console.log("Wrong lat &lon ");
-                
-                console.log(latitude);
+                 
                
                 function display_map(longitude, latitude) {
                   mapboxgl.accessToken = "{{ mapbox_access_token }}"
@@ -214,26 +209,7 @@
                                 <th>global_access_intercommunalite</th>
                                 <th>global_competence_intercommunalite</th>
                               </tr>
-                            </thead>
-                          <tbody> 
-                            {% for user in data['Final_result'] %} 
-                            <tr>
-                              <td>{{user['Nom Com']}}</td>
-                              <td>{{user['Code Iris']}}</td>
-                              <td>{{user['Rank of ScoreGlobal']}}</td>
-                              <td>{{user['Nom Iris']}}</td>
-                              
-                              <td>{{user['Population']}}</td>
-                              <td>{{user['Score Global']}}</td>
-                              <td>{{user['Acces Aux_interfaces_numeriques_intercommunalite']}}</td>
-                              <td>{{user['Access Al_information_intercommunalite']}}</td>
-                              <td>{{user['competences_administative_intercommunalite']}}</td>
-                              <td>{{user['competence_numeriques_intercommunalite']}}</td>
-                              <td>{{user['global_access_intercommunalite']}}</td>
-                              <td>{{user['global_competence_intercommunalite']}}</td>                             
-                            </tr>
-                            {% endfor %}
-                          </tbody>
+                            </thead> 
                       </table>
 
                            

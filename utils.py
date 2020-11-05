@@ -5,7 +5,9 @@ def get_data(filters=None):
     if filters:
         print("data")
     else:
-        result=models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales=="Non").order_by(models.data_indexed.score_global_region.desc()).all()
+        result=models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales=="Non").order_by(models.data_indexed.score_global_region.desc()).limit(100).offset(1*100).all()
+        total_result_count=models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales=="Non").count()
+        print("total",total_result_count)
         i=1
         for r in result:
             data={}

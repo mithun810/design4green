@@ -20,6 +20,7 @@ def get_data(filters=None):
             region=filters["region"]
             department=filters["department"]
             intercommunalities=filters["intercommunalities"]
+            print("here",intercommunalities)
             distinct_filter = [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Commune).filter(models.data_indexed.region == region,models.data_indexed.Department==department,models.data_indexed.intercommunalite==intercommunalities).distinct().all()]
             result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region,models.data_indexed.Department==department,models.data_indexed.intercommunalite==intercommunalities)
         elif filters["change"] == "commune" :
@@ -30,11 +31,11 @@ def get_data(filters=None):
             result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region == region,models.data_indexed.Department==department,models.data_indexed.intercommunalite==intercommunalities,models.data_indexed.Commune==commune)
         # "Tout", "Region", "Department", "Intercommunalite"]
         if reference == "Region":
-            result = result.order_by(models.data_indexed.score_global_region.desc()).limit(100).offset(1*100).all()
+            result = result.order_by(models.data_indexed.score_global_region.desc()).limit(100).offset(0).all()
         elif reference == "Department":
-            result = result.order_by(models.data_indexed.score_global_department.desc()).limit(100).offset(1*100).all()
+            result = result.order_by(models.data_indexed.score_global_department.desc()).limit(100).offset(0).all()
         elif reference == "Intercommunalite":
-            result = result.order_by(models.data_indexed.score_global_intercommunalite.desc()).limit(100).offset(1*100).all()
+            result = result.order_by(models.data_indexed.score_global_intercommunalite.desc()).limit(100).offset(0).all()
         Final_result=[]
         i = 1
         for r in result:
@@ -77,7 +78,7 @@ def get_data(filters=None):
         return filtered_result
     else:
         result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == "Non").order_by(
-            models.data_indexed.score_global_region.desc()).limit(100).offset(1*100).all()
+            models.data_indexed.score_global_region.desc()).limit(100).offset(0).all()
         total_result_count = models.data_indexed.query.filter(
             models.data_indexed.donnes_infra_communales == "Non").count()
         print("total", total_result_count)
@@ -142,8 +143,14 @@ def get_filters(filters=None):
     return filters
 
 if __name__ == '__main__':
-    filters={"change":"region","region":"AUVERGNE RHONE ALPES","donnees_infra_communales":"Non","Choix_de_Point_Reference":"Region"}
+    # filters={"change":"region","region":"AUVERGNE RHONE ALPES","donnees_infra_communales":"Non","Choix_de_Point_Reference":"Region"}
+    filters={"Choix_de_Point_Reference": "Region",
+        "change":"intercommunalities",
+        "department": "SEINE MARITIME",
+        "donnees_infra_communales": "Non",
+        "intercommunalities": "CA Fécamp Caux Littoral Agglo",
+        "region": "NORMANDIE"}
     filtered_result=get_data(filters)
-    from pprint import pprint
-    pprint(filtered_result["Final_result"])
-    print("hi",filtered_result["distinct_filter"])
+    # from pprint import pprint
+    # pprint(filtered_result["Final_result"])
+    print("hi",len(filtered_result["Final_result"]),filtered_result["distinct_filter"])

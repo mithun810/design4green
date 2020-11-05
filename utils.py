@@ -37,6 +37,16 @@ def get_data(filters=None):
             models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department)).distinct().all()]
             commune=[filters["commune"]] if filters["commune"] != "ALL" else [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Commune).filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department),models.data_indexed.intercommunalite.in_(intercommunalities)).distinct().all()]
             result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department),models.data_indexed.intercommunalite.in_(intercommunalities),models.data_indexed.Commune.in_(commune))
+        else:
+            region=region=[filters["region"]] if filters["region"] != "ALL" else [i[0] for i in models.data_indexed.query.with_entities(
+            models.data_indexed.region).distinct().all()]
+            department=[filters["department"]] if filters["department"] != "ALL" else [i[0] for i in models.data_indexed.query.with_entities(
+            models.data_indexed.Department).filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region)).distinct().all()]
+            intercommunalities=[filters["intercommunalities"]] if filters["intercommunalities"] != "ALL" else [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.intercommunalite).filter(
+            models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department)).distinct().all()]
+            commune=[filters["commune"]] if filters["commune"] != "ALL" else [i[0] for i in models.data_indexed.query.with_entities(models.data_indexed.Commune).filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department),models.data_indexed.intercommunalite.in_(intercommunalities)).distinct().all()]
+            result = models.data_indexed.query.filter(models.data_indexed.donnes_infra_communales == donnees,models.data_indexed.region.in_(region),models.data_indexed.Department.in_(department),models.data_indexed.intercommunalite.in_(intercommunalities),models.data_indexed.Commune.in_(commune))
+        
         # "Tout", "Region", "Department", "Intercommunalite"]
         if reference == "Region":
             result = result.order_by(models.data_indexed.score_global_region.desc()).limit(100).offset(0).all()
@@ -65,11 +75,11 @@ def get_data(filters=None):
             elif reference == "Department":
                 data["Score Global"] = r.score_global_region
                 data["Acces Aux_interfaces_numeriques_intercommunalite"] = r.access_aux_interfaces_numeriques_departement
-                data["Access Al_information_intercommunalite"] = r.access_al_information_departement
-                data["competences_administative_intercommunalite"] = r.competences_administative_departement
-                data["competence_numeriques_intercommunalite"] = r.competence_numeriques_departement
-                data["global_access_intercommunalite"] = r.global_access_departement
-                data["global_competence_intercommunalite"] = r.global_competence_departement
+                data["Access Al_information_intercommunalite"] = r.access_al_information_department
+                data["competences_administative_intercommunalite"] = r.competences_administative_department
+                data["competence_numeriques_intercommunalite"] = r.competence_numeriques_department
+                data["global_access_intercommunalite"] = r.global_access_department
+                data["global_competence_intercommunalite"] = r.global_competence_department
             elif reference == "Intercommunalite":
                 data["Score Global"] = r.score_global_region
                 data["Acces Aux_interfaces_numeriques_intercommunalite"] = r.access_aux_interfaces_numeriques_intercommunalite

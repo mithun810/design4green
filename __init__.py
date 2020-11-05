@@ -3,13 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 import models
 import os
 from utils import get_data, get_filters
+import constants
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
-SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
+SECRET_KEY = "Add your secret key"
 # 'mysql://username:password@server/db'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+ os.path.join(basedir, 'designforgreen.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Sql@password@localhost:3306/greendesign'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:'+constants.db_config['password']+'@localhost:3306/'+constants.db_config['dbname']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 db.Model.metadata.reflect(db.engine)

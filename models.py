@@ -1,4 +1,4 @@
-from routes import db
+from __init__ import db
 
 
 class data_indexed(db.Model):

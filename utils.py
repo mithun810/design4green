@@ -87,6 +87,8 @@ def get_data(filters=None):
             data["Rank of ScoreGlobal"] = i
             data["Nom Iris"] = r.nom_iris
             data["Population"] = r.population
+            data["geo_points_lat"]=r.geo_points.split(",")[0]
+            data["geo_points_lon"]=r.geo_points.split(",")[1]
             # filter based on Choix de Point Reference
             data["Score Global"] = r.score_global_region
             # filter based on Choix de Point Reference

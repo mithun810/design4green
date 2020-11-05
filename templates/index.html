@@ -100,91 +100,108 @@
       <div class="row">
         <div class="col-4 mt-5">
             <div class="row">
-                <div id='map' style='width: 95%; height:300px;'></div><br/><br/>
+                
+                <div id='chart' style='width: 95%; height:300px;'></div><br/><br/>
               </div>
+              
               <script>
                 var data={{data|tojson|safe}};  
-                var longitude, latitude;
-                 
-                    latitude=0.0;
-                    longitude=0.0
-                  for (d in data['Final_result'])
-                  {
-                    latitude= data['Final_result'][d]["geo_points_lat"];
-                    longitude=data['Final_result'][d]["geo_points_lon"]; 
-                  }
-                  if(latitude!="0.0")
-                  display_map(longitude, latitude);
-                  else
-                  console.log("Wrong lat &lon ");
-                 
-               
-                function display_map(longitude, latitude) {
-                  mapboxgl.accessToken = "{{ mapbox_access_token }}"
-                  var map = new mapboxgl.Map({
-                  container: 'map',
-                  style: 'mapbox://styles/mapbox/satellite-streets-v10',
-                  center: [longitude,latitude],
-                  zoom: 16,
-                  bearing: -17.6,
-                  pitch:45
-                
-                  });
-                 
-                  map.addControl(new mapboxgl.FullscreenControl());
-                 
-                  var marker = new mapboxgl.Marker()
-                      .setLngLat([longitude,latitude])
-                      .addTo(map);
+                function getTableData(table) 
+                {
+
+                    const dataArray = [],
+                    NomArray = [],
+                    populationArray = [],
+                    ScoreGlobalArray = [];
+   
+                    // loop table rows
+                    table.rows({ search: "applied" }).every(function() {
+                    const data = this.data();
+
+                    NomArray.push(data[0]);
+                    populationArray.push(data[3]);
+                    ScoreGlobalArray.push(data[4]);
+                    });
+   
+                    // store all data in dataArray
+                    dataArray.push(NomArray, populationArray, ScoreGlobalArray);
                    
-                    var nav = new mapboxgl.NavigationControl();
-                      map.addControl(nav, 'top-left');
-                    
-                    map.addControl(new mapboxgl.GeolocateControl({
-                        positionOptions: {
-                            enableHighAccuracy: false
-                        },
-                      trackUserLocation: false
-                  }));
-                    
-                  map.on('load', function() {
-                      
-                      var layers = map.getStyle().layers;
-                      var labelLayerId;
-                      for (var i = 0; i < layers.length; i++) {
-                          if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
-                              labelLayerId = layers[i].id;
-                              break;
-                          }
-                      }
-                      map.addLayer({
-                          'id': '3d-buildings',
-                          'source': 'composite',
-                          'source-layer': 'building',
-                          'filter': ['==', 'extrude', 'true'],
-                          'type': 'fill-extrusion',
-                          'minzoom': 15,
-                          'paint': {
-                              'fill-extrusion-color': '#aaa',
-                             
-                              'fill-extrusion-height': [
-                                  "interpolate", ["linear"], ["zoom"],
-                                  15, 0,
-                                  15.05, ["get", "height"]
-                              ],
-                              'fill-extrusion-base': [
-                                  "interpolate", ["linear"], ["zoom"],
-                                  15, 0,
-                                  15.05, ["get", "min_height"]
-                              ],
-                              'fill-extrusion-opacity': .6
-                          }
-                      }, labelLayerId);
-                  });
+                    return dataArray;
                 }
-                display_map();
-              
+
+                function createHighcharts(data) {
+                    Highcharts.setOptions({
+                        lang: {
+                        thousandsSep: ","
+                        }
+                    });
+                    Highcharts.chart("chart", {
+                        title: {
+                        text: "Charts"
+                        },
+                    xAxis: [
+                    {
+                        categories: data[0],
+                        labels: {
+                        rotation: -45
+                        }
+                    }
+                    ],
+                    yAxis: [
+                    {
+                        // first yaxis
+                        title: {
+                        text: "Nom Com"
+                        }
+                    },
+                    {
+                        // secondary yaxis
+                        title: {
+                        text: "Global Score"
+                        },
+                        min: 0,
+                        opposite: true
+                    }
+                    ],
+                    series: [
+                    {
+                        name: "Population",
+                        color: "#0071A7",
+                        type: "column",
+                        data: data[1],
+                        tooltip: {
+                            valueSuffix: " M"
+                        }
+                    },
+                    {
+                        name: "Global Score",
+                        color: "#FF404E",
+                        type: "spline",
+                        data: data[2],
+                        yAxis: 1
+                    }
+                    ],
+                    tooltip: {
+                        shared: true
+                    },
+                    legend: {
+                        backgroundColor: "#ececec",
+                        shadow: true
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    noData: {
+                        style: {
+                        fontSize: "16px"
+                        }
+                    }
+                });
+            }
+   
+    
               </script>
+
           </div>
            
           <!-- Dark table start -->

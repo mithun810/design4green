@@ -1,4 +1,5 @@
 
+let draw = false;
 (function($) {
     "use strict";
 
@@ -36,7 +37,7 @@
      
     if ($('#dataTable3').length) {
         
-        $('#dataTable3').DataTable( {
+        const table = $('#dataTable3').DataTable( {
             dom: 'Bfrtip', 
             data:data.Final_result,
             columns: [
@@ -67,6 +68,10 @@
                 heightMatch: 'none'
             }
         } ); 
+
+        const tableData = getTableData(table);
+        createHighcharts(tableData);
+        setTableEvents(table);
     } 
 
     

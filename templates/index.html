@@ -82,18 +82,18 @@
                           <label for="inputChoice">choix de point références</label>
                           <select id="inputChoice" class="form-control">
                               <option>Region</option>
-                              {% for user in req["Choix de Point Reference"] %}
+                              {% for user in req["Choix_de_Point_Reference"] %}
                                 <option value="{{user}}">{{user}}</option>
                                 {% endfor %}
                             </select>
                       </div>
                       
                       <div class="form-group col-md-3">
-                          <label for="inputChoice">données infra-communales</label>
+                          <label for="inputChoice">données_infra_communales</label>
                           <select id="inputDonnes" class="form-control">
                               <option>Non</option>
                               <option>Oui</option>
-                              {% for user in req["donnees infra-communales"] %}
+                              {% for user in req["donnees_infra_communales"] %}
                              <option value="{{user}}">{{user}}</option>
                                  {% endfor %}
                             </select>

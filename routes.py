@@ -29,8 +29,8 @@ def index():
   intercomlist=[['Bangalore'], ['Delhi'], ['Chennai']]
   mapbox_access_token = 'pk.eyJ1Ijoidm5pc2hhbnQxMDEyIiwiYSI6ImNraDNoYmIyNzBhZTcycnF5ZTRmamttNmEifQ.0f6AIvvxNgBhNX_zvbhIBw'
   req=get_filters()
-  #data=get_data()
-  return render_template('index.html',mapbox_access_token=mapbox_access_token,req=req)
+  data=get_data()
+  return render_template('index.html',mapbox_access_token=mapbox_access_token,req=req,data=data)
 
 @app.route('/index_get_data',methods=['POST'])
 def stuff():

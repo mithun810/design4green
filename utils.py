@@ -2,6 +2,7 @@ import models
 
 
 def get_data(filters=None):
+    Final_result=[]
     if filters:
         donnees=filters["donnees_infra_communales"]
         reference=filters["Choix de Point Reference"]

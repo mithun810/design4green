@@ -52,7 +52,7 @@ def get_data(filters=None):
             result = result.order_by(models.data_indexed.score_global_region.desc()).limit(100).offset(0).all()
         elif reference == "Department":
             result = result.order_by(models.data_indexed.score_global_department.desc()).limit(100).offset(0).all()
-        elif reference == "Intercommunalite":
+        elif reference == "Intercommunalities":
             result = result.order_by(models.data_indexed.score_global_intercommunalite.desc()).limit(100).offset(0).all()
         Final_result=[]
         i = 1
@@ -73,15 +73,15 @@ def get_data(filters=None):
                 data["global_access_intercommunalite"] = r.global_access_region
                 data["global_competence_intercommunalite"] = r.global_competence_region
             elif reference == "Department":
-                data["Score Global"] = r.score_global_region
+                data["Score Global"] = r.score_global_department
                 data["Acces Aux_interfaces_numeriques_intercommunalite"] = r.access_aux_interfaces_numeriques_departement
                 data["Access Al_information_intercommunalite"] = r.access_al_information_department
                 data["competences_administative_intercommunalite"] = r.competences_administative_department
                 data["competence_numeriques_intercommunalite"] = r.competence_numeriques_department
                 data["global_access_intercommunalite"] = r.global_access_department
                 data["global_competence_intercommunalite"] = r.global_competence_department
-            elif reference == "Intercommunalite":
-                data["Score Global"] = r.score_global_region
+            elif reference == "Intercommunalities":
+                data["Score Global"] = r.score_global_intercommunalite
                 data["Acces Aux_interfaces_numeriques_intercommunalite"] = r.access_aux_interfaces_numeriques_intercommunalite
                 data["Access Al_information_intercommunalite"] = r.access_al_information_intercommunalite
                 data["competences_administative_intercommunalite"] = r.competences_administative_intercommunalite
@@ -155,7 +155,7 @@ def get_filters(filters=None):
         filters["commune"] = [i[0] for i in models.data_indexed.query.with_entities(
             models.data_indexed.Commune).distinct().all()]
         filters["Choix_de_Point_Reference"] = [
-            "Tout", "Region", "Department", "Intercommunalite"]
+            "Tout", "Region", "Department", "Intercommunalities"]
         filters["donnees_infra_communales"] = ["Oui", "Non"]
 
     return filters

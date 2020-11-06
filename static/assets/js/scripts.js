@@ -60,7 +60,7 @@ let draw = false;
             'csvHtml5' 
         ],
         "deferLoading": 50,
-        "info": false, 
+        "info": true, 
         "deferRender": true,
             scrollY:        "500px",
             scrollX:        true,

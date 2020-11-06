@@ -1,22 +1,104 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{{ the_title }}</title>
-  <link href="https://fonts.googleapis.com/css?family=Droid+Serif|Source+Sans+Pro" rel="stylesheet">
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <META http-equiv="cache-control" content="max-age=86400"> 
+
+    <title>Indice de Fragilite Numerique | INR | Institut du Numérique Responsable</title>
+    <meta name="description" content="This tool allows you, whether you are a municipality (council), a department or a region, to compare
+    your digital fragility index with other territories. The functional unit will be: the search for the index of fragility of a municipality (council) in relation
+    to its department and its region.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='assets/images/icon/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/print.min.css') }}">
+    <!-- Start datatable css -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="print" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+ 
+     
+    <!-- amcharts css -->
+    <!-- style css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/typography.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/default-css.min.cs') }}s">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/responsive.min.css') }}">
+     
 </head>
 
 <body>
+  <div id="loading">
+    <img id="loading-image" src="{{ url_for('static', filename='assets/images/icon/loader.gif') }}" alt="Loading..." />
+  </div>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+    <div class="page-container">
+         
+      {% block body %}
+      {% endblock %}
+        <!-- footer area start-->
+        <footer>
+          <div class="footer-area">
+             <p>  &copy;  Copyrights 2020 - Application Design4Green challenge remains the property of the team of developers</p>                
+        </div>
+        </footer>
+        <!-- footer area end-->
+    </div>
+    <!-- page container area end -->
+    <!-- offset area start -->
+    <div class="offset-area">
+        <div class="offset-close"><i class="ti-close"></i></div>
+        <ul class="nav offset-menu-tab">
+            <li><a class="active" data-toggle="tab" href="#activity">Activity</a></li>
+            <li><a data-toggle="tab" href="#settings">Settings</a></li>
+        </ul>
+        
+    </div>
+    <!-- offset area end -->
+    <!-- jquery latest version -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- bootstrap 4 js --> 
+    <script src="{{ url_for('static', filename='assets/js/bootstrap.min.js') }}"></script> 
 
-<div id="container">
+    <!-- Start datatable js -->
+ 
 
-  <!-- Jinja2 directives: page contents will go between them -->
-  {% block body %}
-  {% endblock %}
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/no-data-to-display.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.3.2/js/dataTables.fixedColumns.min.js"></script>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"> 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css"> 
+    
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+     
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.2/css/fixedColumns.dataTables.min.css"> 
 
-</div>
 
+
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+    <!-- others plugins --> 
+    
+    <script src="{{ url_for('static', filename='assets/js/scripts.min.js') }}"></script>
+    
 </body>
+
 </html>

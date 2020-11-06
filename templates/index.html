@@ -100,91 +100,14 @@
       <div class="row">
         <div class="col-4 mt-5">
             <div class="row">
-                <div id='map' style='width: 95%; height:300px;'></div><br/><br/>
-              </div>
-              <script>
-                var data={{data|tojson|safe}};  
-                var longitude, latitude;
-                 
-                    latitude=0.0;
-                    longitude=0.0
-                  for (d in data['Final_result'])
-                  {
-                    latitude= data['Final_result'][d]["geo_points_lat"];
-                    longitude=data['Final_result'][d]["geo_points_lon"]; 
-                  }
-                  if(latitude!="0.0")
-                  display_map(longitude, latitude);
-                  else
-                  console.log("Wrong lat &lon ");
-                 
-               
-                function display_map(longitude, latitude) {
-                  mapboxgl.accessToken = "{{ mapbox_access_token }}"
-                  var map = new mapboxgl.Map({
-                  container: 'map',
-                  style: 'mapbox://styles/mapbox/satellite-streets-v10',
-                  center: [longitude,latitude],
-                  zoom: 16,
-                  bearing: -17.6,
-                  pitch:45
                 
-                  });
-                 
-                  map.addControl(new mapboxgl.FullscreenControl());
-                 
-                  var marker = new mapboxgl.Marker()
-                      .setLngLat([longitude,latitude])
-                      .addTo(map);
-                   
-                    var nav = new mapboxgl.NavigationControl();
-                      map.addControl(nav, 'top-left');
-                    
-                    map.addControl(new mapboxgl.GeolocateControl({
-                        positionOptions: {
-                            enableHighAccuracy: false
-                        },
-                      trackUserLocation: false
-                  }));
-                    
-                  map.on('load', function() {
-                      
-                      var layers = map.getStyle().layers;
-                      var labelLayerId;
-                      for (var i = 0; i < layers.length; i++) {
-                          if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
-                              labelLayerId = layers[i].id;
-                              break;
-                          }
-                      }
-                      map.addLayer({
-                          'id': '3d-buildings',
-                          'source': 'composite',
-                          'source-layer': 'building',
-                          'filter': ['==', 'extrude', 'true'],
-                          'type': 'fill-extrusion',
-                          'minzoom': 15,
-                          'paint': {
-                              'fill-extrusion-color': '#aaa',
-                             
-                              'fill-extrusion-height': [
-                                  "interpolate", ["linear"], ["zoom"],
-                                  15, 0,
-                                  15.05, ["get", "height"]
-                              ],
-                              'fill-extrusion-base': [
-                                  "interpolate", ["linear"], ["zoom"],
-                                  15, 0,
-                                  15.05, ["get", "min_height"]
-                              ],
-                              'fill-extrusion-opacity': .6
-                          }
-                      }, labelLayerId);
-                  });
-                }
-                display_map();
+                <div id='chart' style='width: 95%; height:300px;'></div><br/><br/>
+              </div>
               
+              <script>
+                var data={{data|tojson|safe}};       
               </script>
+
           </div>
            
           <!-- Dark table start -->

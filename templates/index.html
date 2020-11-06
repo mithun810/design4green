@@ -105,7 +105,7 @@
               </div>
               
               <script>
-                var data={{data|tojson|safe}};  
+                var data1={{data|tojson|safe}};  
                 function getTableData(table) 
                 {
 
@@ -115,13 +115,19 @@
                     ScoreGlobalArray = [];
    
                     // loop table rows
-                    table.rows({ search: "applied" }).every(function() {
-                    const data = this.data();
-
-                    NomArray.push(data[0]);
-                    populationArray.push(data[3]);
-                    ScoreGlobalArray.push(data[4]);
-                    });
+                    //table.rows({ search: "applied" }).every(function() {
+                    //const data = this.data();
+                    for (d in data1['Final_result'])
+                    {
+                    NomArray.push(data1['Final_result'][d]["Nom Com"]);
+                    populationArray.push(data1['Final_result'][d]["population"]); 
+                    ScoreGlobalArray.push(data1['Final_result'][d]["Score Global"]); 
+                    
+                    //NomArray.push(data.Final_result['Nom Com']);
+                    //populationArray.push(data[3]);
+                    //ScoreGlobalArray.push(data[4]);
+                    }
+ 
    
                     // store all data in dataArray
                     dataArray.push(NomArray, populationArray, ScoreGlobalArray);
@@ -141,7 +147,7 @@
                         },
                     xAxis: [
                     {
-                        categories: data[0],
+                        categories: data1['Final_result'][0]["Nom Com"],
                         labels: {
                         rotation: -45
                         }
@@ -168,7 +174,7 @@
                         name: "Population",
                         color: "#0071A7",
                         type: "column",
-                        data: data[1],
+                        data: data1['Final_result'][0]["population"],
                         tooltip: {
                             valueSuffix: " M"
                         }
@@ -177,7 +183,7 @@
                         name: "Global Score",
                         color: "#FF404E",
                         type: "spline",
-                        data: data[2],
+                        data: data1['Final_result'][0]["Score Global"],
                         yAxis: 1
                     }
                     ],
@@ -198,7 +204,22 @@
                     }
                 });
             }
-   
+            function setTableEvents(table) {
+  // listen for page clicks
+  table.on("page", () => {
+    draw = true;
+  });
+ 
+  // listen for updates and adjust the chart accordingly
+  table.on("draw", () => {
+    if (draw) {
+      draw = false;
+    } else {
+      const tableData = getTableData(table);
+      createHighcharts(tableData);
+    }
+  });
+}
     
               </script>
 

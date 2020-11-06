@@ -140,8 +140,7 @@ let draw = false;
             dataType: 'json',
             contentType: 'application/json',
             data: JSON.stringify(val),
-            success: function(response){ 
-                console.log(response.data); 
+            success: function(response){  
                 $("#inputDepartment").html("");
                 var optionText = 'ALL'; 
                 var optionValue = 'ALL'; 
@@ -187,7 +186,7 @@ let draw = false;
              contentType: 'application/json',
              data: JSON.stringify(val),
              success: function(response){ 
-                 console.log(response.data); 
+                 
                  $("#inputInterCommunalities").html("");
                  
                  var optionText = 'ALL'; 
@@ -233,7 +232,7 @@ let draw = false;
              contentType: 'application/json',
              data: JSON.stringify(val),
              success: function(response){ 
-                 console.log(response.data); 
+                 
                  $("#inputCommune").html("");
                  var optionText = 'ALL'; 
                  var optionValue = 'ALL'; 
@@ -279,7 +278,7 @@ let draw = false;
              contentType: 'application/json',
              data: JSON.stringify(val),
              success: function(response){ 
-                 console.log(response.data); 
+                 
 
                  var datatable = $('#dataTable3').DataTable();
                  datatable.clear().draw();
@@ -309,7 +308,7 @@ let draw = false;
              contentType: 'application/json',
              data: JSON.stringify(val),
              success: function(response){ 
-                 console.log(response.data); 
+                 
                  var datatable = $('#dataTable3').DataTable();
                  datatable.clear().draw();
                  datatable.rows.add(response.data.Final_result); // Add new data
@@ -338,8 +337,7 @@ let draw = false;
              contentType: 'application/json',
              data: JSON.stringify(val),
              success: function(response){ 
-                 console.log(response.data); 
-
+                 
                  var datatable = $('#dataTable3').DataTable();
                  datatable.clear().draw();
                  datatable.rows.add(response.data.Final_result); // Add new data
@@ -348,6 +346,117 @@ let draw = false;
              error: function(error){console.log(error)}
          });
      })
+     function getTableData(table) 
+     {
 
+         const dataArray = [],
+         NomArray = [],
+         populationArray = [],
+         ScoreGlobalArray = [];
+
+         // loop table rows
+         table.rows({ search: "applied" }).every(function() {
+         const data = this.data();
+           
+           NomArray.push(data["Nom Com"]);
+           populationArray.push(data["Score Global"]); 
+           ScoreGlobalArray.push(data["Population"]); 
+
+         }); 
+
+         // store all data in dataArray
+         dataArray.push(NomArray, populationArray, ScoreGlobalArray); 
+
+         return dataArray;
+     }
+
+     function createHighcharts(data) {
+Highcharts.setOptions({
+lang: {
+thousandsSep: ","
+}
+});
+
+Highcharts.chart("chart", {
+title: {
+text: "Nom Com Vs Global Score Chart"
+},
+
+xAxis: [
+{
+categories: data[0],
+labels: {
+rotation: -45
+}
+}
+],
+yAxis: [
+{
+// first yaxis
+title: {
+text: "Population"
+}
+},
+{
+// secondary yaxis
+title: {
+text: "Score Global"
+},
+min: 0,
+opposite: true
+}
+],
+series: [
+{
+name: "Population",
+color: "#0071A7",
+type: "column",
+data: data[2],
+tooltip: {
+valueSuffix: " M"
+}
+},
+{
+name: "Score Global",
+color: "#FF404E",
+type: "spline",
+data: data[1],
+yAxis: 1
+}
+],
+tooltip: {
+shared: true
+},
+legend: {
+backgroundColor: "#ececec",
+shadow: true
+},
+credits: {
+enabled: false
+},
+noData: {
+style: {
+fontSize: "16px"
+}
+}
+});
+}
+      
+ function setTableEvents(table) {
+// listen for page clicks
+table.on("page", () => {
+draw = true;
+});
+
+// listen for updates and adjust the chart accordingly
+table.on("draw", () => {
+if (draw) {
+draw = false;
+} else {
+const tableData = getTableData(table);
+createHighcharts(tableData);
+}
+});
+}
 
 })(jQuery);

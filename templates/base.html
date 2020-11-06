@@ -12,12 +12,12 @@
     <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='assets/images/icon/favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/themify-icons.min.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/print.min.css') }}">
     <!-- Start datatable css -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+    <link rel="stylesheet" type="text/css" media="print" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
  
      
     <!-- amcharts css -->
@@ -120,15 +120,7 @@
 
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
     <!-- others plugins --> 
-    <script>
-      function showLoading() {
-      $("#loading").show();
-        }
-
-        function hideLoading() {
-            $("#loading").hide();
-        }
-    </script>
+    
     <script src="{{ url_for('static', filename='assets/js/scripts.min.js') }}"></script>
     
 </body>

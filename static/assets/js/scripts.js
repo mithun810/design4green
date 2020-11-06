@@ -132,6 +132,7 @@ let draw = false;
     $('#inputRegion').change(function(){
        var posturl="/index_get_data";
        //var posturl = {{ url_for("stuff") }};
+       showLoading();
         var val = {
                     region: $(this).val(),
                     change : "region",
@@ -167,21 +168,24 @@ let draw = false;
                 datatable.clear().draw();
                 datatable.rows.add(response.data.Final_result); // Add new data
                 datatable.columns.adjust().draw(); // Redraw the DataTable
+                hideLoading();
 
             },
-            error: function(error){console.log(error)}
+            error: function(error){console.log(error);hideLoading();}
         });
     })
 
     $('#inputDepartment').change(function(){
         var posturl="/index_get_data";
         //var posturl = {{ url_for("stuff") }};
+        showLoading();
          var val = {
                      region: $("#inputRegion").val(),
                      department : $(this).val(),
                      change : "department",
                      donnees_infra_communales : $("#inputDonnes").val(),
                      Choix_de_Point_Reference : $("#inputChoice").val()};
+         
      
          $.ajax({
              type: 'POST',
@@ -212,15 +216,17 @@ let draw = false;
                  datatable.clear().draw();
                  datatable.rows.add(response.data.Final_result); // Add new data
                  datatable.columns.adjust().draw(); // Redraw the DataTable
+                 hideLoading();
  
              },
-             error: function(error){console.log(error)}
+             error: function(error){console.log(error);hideLoading();}
          });
      })
      
      $('#inputInterCommunalities').change(function(){
         var posturl="/index_get_data";
         //var posturl = {{ url_for("stuff") }};
+        showLoading();
          var val = {
                      region: $("#inputRegion").val(),
                      department : $("#inputDepartment").val(),
@@ -256,16 +262,18 @@ let draw = false;
                  datatable.clear().draw();
                  datatable.rows.add(response.data.Final_result); // Add new data
                  datatable.columns.adjust().draw(); // Redraw the DataTable
+                 hideLoading();
  
  
              },
-             error: function(error){console.log(error)}
+             error: function(error){console.log(error);hideLoading();}
          });
      })
 
      $('#inputCommune').change(function(){
         var posturl="/index_get_data";
         //var posturl = {{ url_for("stuff") }};
+        showLoading();
          var val = {
                      region: $("#inputRegion").val(),
                      department : $("#inputDepartment").val(),
@@ -288,14 +296,16 @@ let draw = false;
                  datatable.clear().draw();
                  datatable.rows.add(response.data.Final_result); // Add new data
                  datatable.columns.adjust().draw(); // Redraw the DataTable
+                 hideLoading();
              },
-             error: function(error){console.log(error)}
+             error: function(error){console.log(error);hideLoading();}
          });
      })
 
      $('#inputChoice').change(function(){
         var posturl="/index_get_data"; 
         //var posturl = {{ url_for("stuff") }};
+        showLoading();
          var val = {
                      region: $("#inputRegion").val(),
                      department : $("#inputDepartment").val(),
@@ -317,14 +327,16 @@ let draw = false;
                  datatable.clear().draw();
                  datatable.rows.add(response.data.Final_result); // Add new data
                  datatable.columns.adjust().draw(); // Redraw the DataTable
+                 hideLoading();
              },
-             error: function(error){console.log(error)}
+             error: function(error){console.log(error);hideLoading();}
          });
      })
 
      $('#inputDonnes').change(function(){
         var posturl="/index_get_data";
         //var posturl = {{ url_for("stuff") }};
+        showLoading();
          var val = {
                      region: $("#inputRegion").val(),
                      department : $("#inputDepartment").val(),
@@ -346,8 +358,9 @@ let draw = false;
                  datatable.clear().draw();
                  datatable.rows.add(response.data.Final_result); // Add new data
                  datatable.columns.adjust().draw(); // Redraw the DataTable
+                 hideLoading();
              },
-             error: function(error){console.log(error)}
+             error: function(error){console.log(error);hideLoading();}
          });
      })
      function getTableData(table) 

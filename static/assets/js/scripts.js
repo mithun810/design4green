@@ -365,27 +365,25 @@ let draw = false;
      })
      function getTableData(table) 
      {
-
          const dataArray = [],
          NomArray = [],
          populationArray = [],
-         ScoreGlobalArray = [];
+         ScoreGlobalArray = []; 
+         jQuery.each(table.rows().data(), function(index, itemData) {
+            if (index < 100) 
+            {  
+                NomArray.push(itemData["Nom Com"]);
+                populationArray.push(itemData["Score Global"]); 
+                ScoreGlobalArray.push(itemData["Population"]);   
 
-         // loop table rows
-         table.rows({ search: "applied" }).every(function() {             
-            if (NomArray.length <= 100) 
-            {                 
-                const data = this.data();           
-                NomArray.push(data["Nom Com"]);
-                populationArray.push(data["Score Global"]); 
-                ScoreGlobalArray.push(data["Population"]);             
+              }
+            else{
+                return false;
             }
-         }); 
-
-         // store all data in dataArray
-         dataArray.push(NomArray, populationArray, ScoreGlobalArray); 
-
-         return dataArray;
+            dataArray.push(NomArray, populationArray, ScoreGlobalArray); 
+          });
+ 
+         return dataArray; 
      }
 
      function createHighcharts(data) {

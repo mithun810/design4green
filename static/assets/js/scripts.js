@@ -37,7 +37,7 @@ let draw = false;
      
     if ($('#dataTable3').length) {
         
-        $('#dataTable3').DataTable( {
+        const  table = $('#dataTable3').DataTable( {
             dom: 'lBfrtip', 
             data:data.Final_result,
             columns: [
@@ -359,13 +359,14 @@ let draw = false;
          ScoreGlobalArray = [];
 
          // loop table rows
-         table.rows({ search: "applied" }).every(function() {
-         const data = this.data();
-           
-           NomArray.push(data["Nom Com"]);
-           populationArray.push(data["Score Global"]); 
-           ScoreGlobalArray.push(data["Population"]); 
-
+         table.rows({ search: "applied" }).every(function() {             
+            if (NomArray.length <= 100) 
+            {                 
+                const data = this.data();           
+                NomArray.push(data["Nom Com"]);
+                populationArray.push(data["Score Global"]); 
+                ScoreGlobalArray.push(data["Population"]);             
+            }
          }); 
 
          // store all data in dataArray
